@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>StarWarsJS</title>
+
+    <link rel="stylesheet" href="css/starwars.css" />
+    <link rel="stylesheet" href="/dist/output.css" />
+    <script src="starwars.js" defer></script>
+    <script src="main.js" defer></script>
+
+    <link rel="stylesheet/less" type="text/css" href="css/stars.scss" />
+    <script src="https://cdn.jsdelivr.net/npm/less"></script>
+  </head>
+  <body>
+    <div class="background-container"></div>
+    <div class="stars"></div>
+    <div class="twinkling"></div>
+
+    <div class="animation-toggle absolute z-30 right-4 top-4">
+      <label
+        id="introToggle"
+        class="relative h-10 w-10 cursor-pointer inline-block"
+      >
+        <input
+          type="checkbox"
+          name="animationState"
+          id="animationState"
+          class="opacity-0 w-0 h-0"
+          checked
+        />
+        <svg
+          viewBox="0 0 512 512"
+          class="absolute top-0 transition toggle fill-neutral-700"
+        >
+          <g>
+            <g>
+              <path
+                d="M280,320V24c0-13.254-10.746-24-24-24s-24,10.746-24,24v296h-24v160h24v32h48v-32h24V320H280z"
+              />
+            </g>
+          </g>
+          <g>
+            <g>
+              <rect x="368" y="184" width="96" height="48" />
+            </g>
+          </g>
+          <g>
+            <g>
+              <rect
+                x="332.108"
+                y="83.018"
+                transform="matrix(0.7757 -0.6311 0.6311 0.7757 17.7187 263.8901)"
+                width="96"
+                height="48"
+              />
+            </g>
+          </g>
+          <g>
+            <g>
+              <rect x="48" y="184" width="96" height="48" />
+            </g>
+          </g>
+          <g>
+            <g>
+              <rect
+                x="107.893"
+                y="59.027"
+                transform="matrix(0.6311 -0.7757 0.7757 0.6311 -34.3656 141.7918)"
+                width="48"
+                height="96"
+              />
+            </g>
+          </g>
+        </svg>
+      </label>
+    </div>
+
+    <div class="starwars-demo z-10">
+      <img src="assets/star.svg" alt="Star" class="star" />
+      <img src="assets/wars.svg" alt="Wars" class="wars" />
+      <h2 class="byline" id="byline">The API Strikes Back</h2>
+    </div>
+    <div
+      class="p-4 main-app-wrapper z-20 min-h-screen flex flex-wrap content-center justify-center"
+    >
+      <form class="main-search md:w-6/12 max-w-screen-md">
+        <div
+          class="relative flex outline-none hover:border-neutral-500 border-neutral-700 bg-neutral-700 transition min-w-full text-white rounded-xl"
+        >
+          <svg
+            class="pointer-events-none absolute top-2/4 left-4 w-8 h-8 -translate-y-2/4"
+            viewBox="0 0 512 512"
+          >
+            <path
+              style="fill: #e6e9ed"
+              d="M512,256c0,141.391-114.594,256-256,256C114.625,512,0,397.391,0,256S114.625,0,256,0
+C397.406,0,512,114.609,512,256z"
+            />
+            <path
+              style="fill: #ccd1d9"
+              d="M509.656,290.906C511.188,279.484,512,267.844,512,256c0-1.953-0.031-3.891-0.062-5.812
+c-1.938,4.641-6.031,9.953-11.844,15.266c-11.844,10.781-30.188,21.141-53.062,29.969c-24.438,9.406-53.062,16.844-85.062,22.062
+c-33.531,5.453-69.156,8.219-105.969,8.219c-36.781,0-72.438-2.766-105.938-8.219c-32.031-5.219-60.656-12.656-85.062-22.062
+c-22.875-8.828-41.219-19.188-53.062-29.969c-5.844-5.312-9.906-10.625-11.875-15.266C0.031,252.109,0,254.047,0,256
+c0,11.844,0.812,23.484,2.375,34.906c45,36.562,141.656,61.859,253.625,61.859S464.625,327.469,509.656,290.906z"
+            />
+            <path
+              style="fill: #656d78"
+              d="M394.469,127.516c24.75,24.734,28.75,60.844,8.969,80.625s-55.875,15.781-80.625-8.969
+c-24.75-24.719-28.75-60.828-8.969-80.625C333.656,98.766,369.75,102.766,394.469,127.516z"
+            />
+          </svg>
+          <input
+            class="pl-16 py-4 w-full bg-transparent focus:outline-yellow-300 outline -outline-offset-2 outline-transparent outline-2 rounded-tl-xl rounded-bl-xl placeholder-neutral-300"
+            type="text"
+            placeholder="Search the Star Wars universe"
+          />
+          <select
+            class="focus:outline-neutral-500 transition outline outline-2 outline-transparent -outline-offset-2 hover:bg-neutral-900 px-4 py-4 cursor-pointer appearance-none bg-neutral-800 text-neutral-400"
+            name=""
+            id=""
+          >
+            <option value="">All</option>
+            <option value="">Films</option>
+            <option value="">People</option>
+            <option value="">Planets</option>
+            <option value="">Species</option>
+            <option value="">Starships</option>
+            <option value="">Vehicles</option>
+          </select>
+          <button
+            class="active:outline-yellow-400 outline outline-4 outline-transparent outline-offset-4 px-6 text-zinc-700 transition hover:bg-yellow-400 bg-yellow-300 rounded-tr-xl rounded-br-xl"
+          >
+            Search
+          </button>
+        </div>
+        <div class="result"></div>
+      </form>
+    </div>
+  </body>
+</html>
