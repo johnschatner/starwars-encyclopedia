@@ -1,5 +1,9 @@
 {
   "devDependencies": {
     "tailwindcss": "^3.2.4"
+  },
+  "scripts": {
+    "build": "npm run build:css",
+    "build:css": "tailwindcss -m -i ./src/input.css -o dist/output.css"
   }
 }
