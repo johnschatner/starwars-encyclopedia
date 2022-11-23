@@ -1,3 +1,9 @@
+/* Font */
+@font-face {
+  font-family: "ITC Serif Gothic";
+  src: url(/src/assets/itc-serif.otf);
+}
+
 /* Animation properties */
 .main-app-wrapper {
   animation: showForm 1.2s ease-out;
