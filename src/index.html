@@ -8,8 +8,10 @@
 
     <link rel="stylesheet" href="/src/css/starwars.css" />
     <link rel="stylesheet" href="/dist/output.css" />
-    <script src="/src/starwars.js" defer></script>
-    <script src="/src/main.js" defer></script>
+    <script src="/src/js/starwars.js" defer></script>
+    <script src="/src/js/main.js" defer></script>
+    <script src="/src/js/fetchAPI.js" defer></script>
+    <script src="/src/js/events.js" defer></script>
 
     <link rel="stylesheet/less" type="text/css" href="/src/css/stars.scss" />
     <script src="https://cdn.jsdelivr.net/npm/less"></script>
@@ -121,18 +123,19 @@ c-24.75-24.719-28.75-60.828-8.969-80.625C333.656,98.766,369.75,102.766,394.469,1
           <select
             class="focus:outline-neutral-500 transition outline outline-2 outline-transparent -outline-offset-2 hover:bg-neutral-900 px-4 py-4 cursor-pointer appearance-none bg-neutral-800 text-neutral-400"
             name=""
-            id=""
+            id="listSelector"
           >
-            <option value="">All</option>
-            <option value="">Films</option>
-            <option value="">People</option>
-            <option value="">Planets</option>
-            <option value="">Species</option>
-            <option value="">Starships</option>
-            <option value="">Vehicles</option>
+            <option value="all">All</option>
+            <option value="people">People</option>
+            <option value="films">Films</option>
+            <option value="starships">Starships</option>
+            <option value="vehicles">Vehicles</option>
+            <option value="species">Species</option>
+            <option value="planets">Planets</option>
           </select>
           <button
             class="active:outline-yellow-400 outline outline-4 outline-transparent outline-offset-4 px-6 text-zinc-700 transition hover:bg-yellow-400 bg-yellow-300 rounded-tr-xl rounded-br-xl"
+            id="searchBtn"
           >
             Search
           </button>
