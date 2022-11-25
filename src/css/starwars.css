@@ -6,27 +6,27 @@
 
 /* Animation properties */
 .main-app-wrapper {
-  animation: showForm 1.2s ease-out;
+  animation: showForm 4.2s ease-out;
   animation-fill-mode: forwards;
 }
 .starwars-demo {
-  animation: outro 1s ease-out;
+  animation: outro 4s ease-out;
   animation-fill-mode: forwards;
 }
 .star {
-  animation: star 1s ease-out;
+  animation: star 4s ease-out;
   animation-fill-mode: forwards;
 }
 .wars {
-  animation: wars 1s ease-out;
+  animation: wars 4s ease-out;
   animation-fill-mode: forwards;
 }
 .byline span {
-  animation: spin-letters 1s ease-out;
+  animation: spin-letters 4s ease-out;
   animation-fill-mode: forwards;
 }
 .byline {
-  animation: move-byline 1s ease-out;
+  animation: move-byline 4s ease-out;
   animation-fill-mode: forwards;
 }
 
