@@ -42,14 +42,19 @@ function searchAkabab(data) {
   console.log(data);
   let searchValue = document.querySelector("#searchField").value;
   searchValue = searchValue.toLowerCase();
-  const persons = []; // Create new object to store "Name" and "Image"
+  const people = []; // Create new object to store "Name" and "Image"
 
   for (let i = 0; i < data.length; i++) {
+    // - Rebecca
     const person = {
-      name: data[i].name.toLowerCase(),
+      name: searchValue.includes("-")
+        ? data[i].name.toLowerCase()
+        : data[i].name.toLowerCase().replace("-", ""),
       image: data[i].image,
     };
-    persons.push(person);
+    // - Rebecca
+    people.push(person);
   }
-  console.log(filterIt(persons, searchValue));
+
+  console.log(filterIt(people, searchValue));
 }
