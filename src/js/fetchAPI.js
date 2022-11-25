@@ -31,30 +31,58 @@ function checkIfPeople() {
   console.log(selectValue);
   if (selectValue == "people") {
     getAkababData(akababUrl).then((data) => {
-      searchAkabab(data);
+      searchAkabab(data).then((matches) => {
+        renderAkabab(matches);
+      });
     });
   } else {
     console.log("(❁´◡`❁)");
   }
 }
 
-function searchAkabab(data) {
+async function searchAkabab(data) {
   console.log(data);
   let searchValue = document.querySelector("#searchField").value;
   searchValue = searchValue.toLowerCase();
   const people = []; // Create new object to store "Name" and "Image"
 
   for (let i = 0; i < data.length; i++) {
-    // - Rebecca
+    // Remove dashes when user doesn't search with it and leave it in when they do
+    // Eg: search = c-3po {name: c-3po}, search = c3po {name: c3po}
+    // Make everything lowercase
+    const regE = /[^a-z0-9 -]/g;
+    const regDash = /[^a-z0-9 é]/g;
+
+    // fix search query for dashes (-) and special characters (é)
+    // fix search query for dashes (-) and special characters (é)
+    // fix search query for dashes (-) and special characters (é)
+    let searchableName = data[i].name.toLowerCase();
+
+    console.log(searchableName);
+    // fix search query for dashes (-) and special characters (é)
+    // fix search query for dashes (-) and special characters (é)
+    // fix search query for dashes (-) and special characters (é)
+    // fix search query for dashes (-) and special characters (é)
+    // fix search query for dashes (-) and special characters (é)
+
     const person = {
-      name: searchValue.includes("-")
-        ? data[i].name.toLowerCase()
-        : data[i].name.toLowerCase().replace("-", ""),
+      name: searchableName,
       image: data[i].image,
     };
-    // - Rebecca
     people.push(person);
   }
 
-  console.log(filterIt(people, searchValue));
+  const matches = filterIt(people, searchValue);
+  return await matches;
+}
+
+function renderAkabab(matches) {
+  console.log(matches);
+  const result = document.querySelector(".result");
+  for (let i = 0; i < matches.length; i++) {
+    const img = document.createElement("img");
+    img.src = matches[i].image;
+    img.className = "w-64";
+    result.appendChild(img);
+  }
 }
