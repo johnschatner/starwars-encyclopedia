@@ -14,8 +14,10 @@
     <script src="/src/js/events.js" defer></script>
     <script src="/src/js/init.js" defer></script>
     <script src="/src/js/helpers.js" defer></script>
+    <script src="/src/js/randomcard.js" defer></script>
 
     <link rel="stylesheet/less" type="text/css" href="/src/css/stars.scss" />
+    <link rel="stylesheet" href="/src/css/rebecca.css" />
     <script src="https://cdn.jsdelivr.net/npm/less"></script>
   </head>
   <body>
@@ -88,7 +90,7 @@
       <h2 class="byline" id="byline">The API Strikes Back</h2>
     </div>
     <div
-      class="p-4 main-app-wrapper z-20 min-h-screen flex flex-wrap content-center justify-center"
+      class="p-4 main-app-wrapper z-20 min-h-screen flex flex-wrap flex-col content-center justify-center"
     >
       <form class="main-search md:w-6/12 max-w-screen-md">
         <div
@@ -137,6 +139,7 @@ c-24.75-24.719-28.75-60.828-8.969-80.625C333.656,98.766,369.75,102.766,394.469,1
         </div>
         <div class="result text-white flex absolute"></div>
       </form>
+      <div id="randomCardDisplay"></div>
     </div>
   </body>
 </html>
