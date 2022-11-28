@@ -3,8 +3,25 @@ const swapiUrl = "https://swapi.dev/api/";
 const akababUrl = "https://akabab.github.io/starwars-api/api/all.json";
 const searchParameter = "?search=";
 
+// get Loading element
+const loader = document.querySelector("#loading");
+// show loading
+function displayLoading() {
+  loader.classList.add("display");
+  // to stop loading after some time
+  setTimeout(() => {
+    loader.classList.remove("display");
+  }, 5000);
+}
+// hide loading
+function hideLoading() {
+  loader.classList.remove("display");
+}
+
+// Main function to fetch data from API
 // Get response from SWAPI
 function getSwapiData() {
+  displayLoading();
   let selectValue = document.querySelector("#listSelector").value;
   let searchValue = document.querySelector("#searchField").value;
   let searchTerm = swapiUrl + selectValue + searchParameter + searchValue;
@@ -14,6 +31,7 @@ function getSwapiData() {
   fetch(searchTerm)
     .then((response) => response.json())
     .then((data) => {
+      hideLoading();
       console.log(data);
       checkIfPeople();
     });
@@ -47,24 +65,19 @@ async function searchAkabab(data) {
   const people = []; // Create new object to store "Name" and "Image"
 
   for (let i = 0; i < data.length; i++) {
-    // Remove dashes when user doesn't search with it and leave it in when they do
-    // Eg: search = c-3po {name: c-3po}, search = c3po {name: c3po}
-    // Make everything lowercase
-    const regE = /[^a-z0-9 -]/g;
-    const regDash = /[^a-z0-9 é]/g;
-
-    // fix search query for dashes (-) and special characters (é)
-    // fix search query for dashes (-) and special characters (é)
-    // fix search query for dashes (-) and special characters (é)
+    // replace the original array with updated names that
+    // are easier to find with our search function
     let searchableName = data[i].name.toLowerCase();
+    // checks if the original name has a "-" or "é" and if we have either
+    // character in our search query
+    if (searchableName.includes("-") && !searchValue.includes("-")) {
+      searchableName = searchableName.replace("-", "");
+    } else if (searchableName.includes("é") && !searchValue.includes("é")) {
+      searchableName = searchableName.replace("é", "e");
+    }
 
-    console.log(searchableName);
-    // fix search query for dashes (-) and special characters (é)
-    // fix search query for dashes (-) and special characters (é)
-    // fix search query for dashes (-) and special characters (é)
-    // fix search query for dashes (-) and special characters (é)
-    // fix search query for dashes (-) and special characters (é)
-
+    // Create the person object {} that will be pushed into the
+    // people array []
     const person = {
       name: searchableName,
       image: data[i].image,
@@ -72,6 +85,7 @@ async function searchAkabab(data) {
     people.push(person);
   }
 
+  console.log(people);
   const matches = filterIt(people, searchValue);
   return await matches;
 }
