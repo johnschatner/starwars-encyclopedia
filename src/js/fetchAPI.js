@@ -8,6 +8,8 @@ const loader = document.querySelector("#loading");
 // show loading
 function displayLoading() {
   loader.classList.add("display");
+  //Enables pointer-events-none so inputs cant be made while loading occurs
+  searchBar.classList.add("pointer-events-none");
   // to stop loading after some time
   setTimeout(() => {
     loader.classList.remove("display");
@@ -16,6 +18,8 @@ function displayLoading() {
 // hide loading
 function hideLoading() {
   loader.classList.remove("display");
+  //Disables pointer-events-none so inputs can be made
+  searchBar.classList.remove("pointer-events-none");
 }
 
 // Main function to fetch data from API
@@ -34,8 +38,8 @@ function getSwapiData() {
       .then((response) => response.json())
       .then((data) => {
         hideLoading();
-        console.log(data);
-        checkIfPeople();
+        hideError();
+        //checkIfPeople();
         if (data.count === 0) {
           noResults();
         } else {
@@ -57,7 +61,7 @@ function getSwapiData() {
 function checkIfPeople() {
   let selectValue = document.querySelector("#listSelector").value;
   console.log(selectValue);
-  if (selectValue == "people") {
+  if (selectValue === "people") {
     getAkababData(akababUrl).then((data) => {
       searchAkabab(data).then((matches) => {
         renderAkabab(matches);
@@ -117,6 +121,7 @@ function renderAkabab(matches) {
     result.appendChild(img);
   }
 }
+let errorMessagediv = document.querySelector(".errorMessage");
 
 // If no results were given
 function noResults() {
@@ -124,7 +129,7 @@ function noResults() {
   let span = document.querySelector(".error-span");
 
   span.innerHTML = "No results were found!";
-
+  errorMessagediv.classList.remove("hidden");
   let img = document.createElement("img");
   img.setAttribute("id", "existingImg");
   img.className = "w-full h-full object-cover rounded-md";
@@ -137,7 +142,18 @@ function noResults() {
   }
   imgContainer.appendChild(span);
 }
+function hideError() {
+  errorMessagediv.classList.add("hidden");
+}
 // Render the search results from the API call
 function renderSearchResults(data) {
   console.log("Rendering search results");
+  console.log(data);
+  const searchResults = document.querySelector(".search-results");
+  const spanResults = document.querySelectorAll("li>span");
+  console.log(spanResults);
+
+  for (let i = 0; i < spanResults.length; i++) {
+    spanResults[i].innerText = data.results[0].height;
+  }
 }
