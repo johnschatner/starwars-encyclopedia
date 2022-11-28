@@ -7,13 +7,18 @@
     <title>StarWarsJS</title>
 
     <link rel="stylesheet" href="/src/css/starwars.css" />
+    <link rel="stylesheet" href="/src/css/loading.css" />
     <link rel="stylesheet" href="/dist/output.css" />
     <script src="/src/js/starwars.js" defer></script>
     <script src="/src/js/main.js" defer></script>
     <script src="/src/js/fetchAPI.js" defer></script>
     <script src="/src/js/events.js" defer></script>
+    <script src="/src/js/init.js" defer></script>
+    <script src="/src/js/helpers.js" defer></script>
+    <script src="/src/js/randomcard.js" defer></script>
 
     <link rel="stylesheet/less" type="text/css" href="/src/css/stars.scss" />
+    <link rel="stylesheet" href="/src/css/rebecca.css" />
     <script src="https://cdn.jsdelivr.net/npm/less"></script>
   </head>
   <body>
@@ -86,9 +91,12 @@
       <h2 class="byline" id="byline">The API Strikes Back</h2>
     </div>
     <div
-      class="p-4 main-app-wrapper z-20 min-h-screen flex flex-wrap content-center justify-center"
+      class="p-4 main-app-wrapper z-20 min-h-screen flex flex-wrap flex-col content-center justify-center"
     >
       <form class="main-search md:w-6/12 max-w-screen-md">
+        <!-- Loading spinner -->
+        <div id="loading"></div>
+        <!-- Loading spinner -->
         <div
           class="relative flex outline-none hover:border-neutral-500 border-neutral-700 bg-neutral-700 transition min-w-full text-white rounded-xl"
         >
@@ -118,22 +126,14 @@ c-24.75-24.719-28.75-60.828-8.969-80.625C333.656,98.766,369.75,102.766,394.469,1
           <input
             class="pl-16 py-4 w-full bg-transparent focus:outline-yellow-300 outline -outline-offset-2 outline-transparent outline-2 rounded-tl-xl rounded-bl-xl placeholder-neutral-300"
             type="text"
-            placeholder="Search the Star Wars universe"
+            placeholder="Search SWAPI"
             id="searchField"
           />
           <select
             class="focus:outline-neutral-500 transition outline outline-2 outline-transparent -outline-offset-2 hover:bg-neutral-900 px-4 py-4 cursor-pointer appearance-none bg-neutral-800 text-neutral-400"
             name=""
             id="listSelector"
-          >
-            <option value="">All</option>
-            <option value="people">People</option>
-            <option value="films">Films</option>
-            <option value="starships">Starships</option>
-            <option value="vehicles">Vehicles</option>
-            <option value="species">Species</option>
-            <option value="planets">Planets</option>
-          </select>
+          ></select>
           <button
             class="active:outline-yellow-400 outline outline-4 outline-transparent outline-offset-4 px-6 text-zinc-700 transition hover:bg-yellow-400 bg-yellow-300 rounded-tr-xl rounded-br-xl"
             id="searchBtn"
@@ -141,8 +141,9 @@ c-24.75-24.719-28.75-60.828-8.969-80.625C333.656,98.766,369.75,102.766,394.469,1
             Search
           </button>
         </div>
-        <div class="result"></div>
+        <div class="result text-white flex absolute"></div>
       </form>
+      <div id="randomCardDisplay"></div>
     </div>
   </body>
 </html>
