@@ -1,9 +1,3 @@
-// Get the searchbar from the DOM
-const searchBar = document.querySelector(".main-search");
-searchBar.addEventListener("click", (e) => {
-  e.preventDefault();
-});
-
 /////////////////////////////////////////
 // Animation Toggle
 // Get cookie

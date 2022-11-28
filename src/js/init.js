@@ -1,14 +1,22 @@
 // SWAPI Base URL
 const url = "https://swapi.dev/api/";
 
+// Get the searchbar from the DOM and prevent form action
+const searchBar = document.querySelector(".main-search");
+searchBar.addEventListener("click", (e) => {
+  e.preventDefault();
+});
+
 // Get response from SWAPI
 async function getInitSwapiData() {
+  displayLoading();
   const response = await fetch(url);
   const data = await response.json();
   return data;
 }
 // Run getSwapiData func
 getInitSwapiData(url).then((data) => {
+  hideLoading();
   const categories = Object.keys(data);
   // Run the populateSelect
   populateSelect(categories);
