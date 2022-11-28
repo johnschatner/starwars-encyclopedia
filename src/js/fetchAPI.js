@@ -21,28 +21,38 @@ function hideLoading() {
 // Main function to fetch data from API
 // Get response from SWAPI
 function getSwapiData() {
-  displayLoading();
   let selectValue = document.querySelector("#listSelector").value;
   let searchValue = document.querySelector("#searchField").value;
   let searchTerm = swapiUrl + selectValue + searchParameter + searchValue;
-
   console.log(searchTerm);
 
-  fetch(searchTerm)
-    .then((response) => response.json())
-    .then((data) => {
-      hideLoading();
-      console.log(data);
-      checkIfPeople();
-    });
+  const searchField = document.querySelector("#searchField");
+
+  if (searchValue.length >= 2) {
+    displayLoading();
+    fetch(searchTerm)
+      .then((response) => response.json())
+      .then((data) => {
+        hideLoading();
+        console.log(data);
+        checkIfPeople();
+        if (data.count === 0) {
+          noResults();
+        } else {
+          searchField.classList.remove("focus:outline-red-700");
+          searchField.setAttribute("placeholder", "Search SWAPI");
+          renderSearchResults(data);
+        }
+      });
+  } else {
+    console.log("TOO FEW CHARACTERS");
+    searchField.value = "";
+    searchField.focus();
+    searchField.classList.add("focus:outline-red-700");
+    searchField.setAttribute("placeholder", "Enter 2 or more characters");
+  }
 }
 
-// Get response from akabab
-async function getAkababData(akababUrl) {
-  const response = await fetch(akababUrl);
-  const data = await response.json();
-  return data;
-}
 // Run getSwapiData func
 function checkIfPeople() {
   let selectValue = document.querySelector("#listSelector").value;
@@ -56,6 +66,13 @@ function checkIfPeople() {
   } else {
     console.log("(❁´◡`❁)");
   }
+}
+
+// Get response from akabab
+async function getAkababData(akababUrl) {
+  const response = await fetch(akababUrl);
+  const data = await response.json();
+  return data;
 }
 
 async function searchAkabab(data) {
@@ -99,4 +116,28 @@ function renderAkabab(matches) {
     img.className = "w-64";
     result.appendChild(img);
   }
+}
+
+// If no results were given
+function noResults() {
+  const imgContainer = document.querySelector(".imgContainer");
+  let span = document.querySelector(".error-span");
+
+  span.innerHTML = "No results were found!";
+
+  let img = document.createElement("img");
+  img.setAttribute("id", "existingImg");
+  img.className = "w-full h-full object-cover rounded-md";
+  img.src =
+    "https://starwarsblog.starwars.com/wp-content/uploads/sites/8/2017/10/star-wars-empire-strikes-back-luke-skywalker-1.jpg";
+  if (document.querySelector("#existingImg")) {
+    console.log("Already error");
+  } else {
+    imgContainer.appendChild(img);
+  }
+  imgContainer.appendChild(span);
+}
+// Render the search results from the API call
+function renderSearchResults(data) {
+  console.log("Rendering search results");
 }
