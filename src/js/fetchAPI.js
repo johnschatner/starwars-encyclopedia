@@ -150,10 +150,21 @@ function renderSearchResults(data) {
   console.log("Rendering search results");
   console.log(data);
   const searchResults = document.querySelector(".search-results");
-  const spanResults = document.querySelectorAll("li>span");
-  console.log(spanResults);
+  const spanKeys = document.querySelectorAll("li>span.key");
+  const spanValues = document.querySelectorAll("li>span.value");
 
-  for (let i = 0; i < spanResults.length; i++) {
-    spanResults[i].innerText = data.results[0].height;
+  console.log(data.results[0]);
+  let keys = Object.keys(data.results[0]);
+  let values = Object.values(data.results[0]);
+
+  for (let i = 0; i < spanKeys.length; i++) {
+    spanKeys[i].innerText = keys[i];
+  }
+  for (let i = 0; i < spanValues.length; i++) {
+    if (values[i] === "n/a") {
+      spanValues[i].innerText = "No hair";
+    } else {
+      spanValues[i].innerText = values[i];
+    }
   }
 }
