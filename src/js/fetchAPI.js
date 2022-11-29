@@ -167,38 +167,30 @@ function renderSearchResults(data) {
   searchResults.innerHTML = ""; // Clear previous search results
   searchResults.appendChild(btnNode); // Clear previous search results
 
-  // Run a functio to return how many results to render
-  let pairs = getKeyValuePairs(data);
-  console.log(pairs);
-
   // iterate over each API response (data.count)
-  for (let j = 0; j < pairs.length; j++) {
+  for (let j = 0; j < data.count; j++) {
     // Append the amount of search results
     let btnNodeClone = btnNode.cloneNode(true); // clone a new search result
     searchResults.appendChild(btnNodeClone); // append a new search result
 
     // Get each span tag with applicable class (key || value)
-    let spanKeys = document.querySelectorAll("li>span.key");
-    let spanValues = document.querySelectorAll("li>span.value");
+    let spanKeys = searchResults.querySelectorAll("li>span.key");
+    let spanValues = searchResults.querySelectorAll("li>span.value");
 
     // iterate over each attribute
     // Print the attributes for each search result
+
+    const searchResultObject = data.results[j];
+    const keys = Object.keys(searchResultObject);
+    const values = Object.values(searchResultObject);
+
+    // Loopa 4 gånger
     for (let i = 0; i < 4; i++) {
-      spanKeys[i].innerText = pairs[j][i][0];
-      spanValues[i].innerText = pairs[j][i][1];
+      spanKeys[i].innerText = keys[i];
+      spanValues[i].innerText = values[i];
     }
   }
 }
 
 // CLEAR SEARCH RESULT AFTER EACH SEARCH [DONE]
 // LINE: 167-168
-
-function getKeyValuePairs(data) {
-  let bag = []; // declare empty array
-  for (let i = 0; i < data.count; i++) {
-    // iterate over each data.count response
-    let keyValuePairs = Object.entries(data.results[i]); // get key value pairs
-    bag.push(keyValuePairs); // insert each key value pair to bag array
-  }
-  return bag; // return the bag array with key value pairs
-}
