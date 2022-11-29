@@ -131,6 +131,9 @@ function noResults() {
   const imgContainer = document.querySelector(".imgContainer");
   let span = document.querySelector(".error-span");
 
+  let searchResults = document.querySelector(".search-results");
+  searchResults.classList.add("hidden");
+
   span.innerHTML = "No results were found!";
   errorMessagediv.classList.remove("hidden");
   let img = document.createElement("img");
@@ -145,54 +148,56 @@ function noResults() {
   }
   imgContainer.appendChild(span);
 }
+
 function hideError() {
-  errorMessagediv.classList.add("hidden");
+  errorMessagediv.classList.add("hidden"); // hide error with class display:none;
 }
+
 // Render the search results from the API call
 function renderSearchResults(data) {
   console.log("Rendering search results");
-  console.log(data);
+  console.log(data); // Logs the API response
 
-  // Clone the element
-  const searchResults = document.querySelector(".search-results");
+  // Gets the element to clone into (searchResults) and the element
+  // to clone (btnNode)
+  let searchResults = document.querySelector(".search-results");
+  searchResults.classList.remove("hidden");
   const btnNode = document.querySelector(".search-result");
 
-  // How many to render
+  // Run a functio to return how many results to render
   let pairs = getKeyValuePairs(data);
   console.log(pairs);
 
+  // iterate over each API response (data.count)
   for (let j = 0; j < pairs.length; j++) {
     // Append the amount of search results
-    let btnNodeClone = btnNode.cloneNode(true);
-    searchResults.appendChild(btnNodeClone);
+    let btnNodeClone = btnNode.cloneNode(true); // clone a new search result
+    searchResults.appendChild(btnNodeClone); // append a new search result
 
-    // Rendering
+    // Get each span tag with applicable class (key || value)
     let spanKeys = document.querySelectorAll("li>span.key");
     let spanValues = document.querySelectorAll("li>span.value");
 
+    // iterate over each attribute
     // Print the attributes for each search result
     for (let i = 0; i < 4; i++) {
-      console.log(pairs[j][i][0]);
       spanKeys[i].innerText = pairs[j][i][0];
-      console.log(pairs[j][i][1]);
       spanValues[i].innerText = pairs[j][i][1];
     }
   }
 }
 
-// if (pairs[i][i][1] !== "n/a") {
-//   spanKeys[i].innerText = pairs[i][i][0];
-//   spanValues[i].innerText = pairs[i][i][1];
-// } else {
-//   console.log("Not applicable");
-// }
+// CLEAR SEARCH RESULT AFTER EACH SEARCH [TODO]
+// CLEAR SEARCH RESULT AFTER EACH SEARCH [TODO]
+// CLEAR SEARCH RESULT AFTER EACH SEARCH [TODO]
+// CLEAR SEARCH RESULT AFTER EACH SEARCH [TODO]
 
 function getKeyValuePairs(data) {
-  let bag = [];
+  let bag = []; // declare empty array
   for (let i = 0; i < data.count; i++) {
-    console.log(`I am the ${i} element`);
-    let keyValuePairs = Object.entries(data.results[i]);
-    bag.push(keyValuePairs);
+    // iterate over each data.count response
+    let keyValuePairs = Object.entries(data.results[i]); // get key value pairs
+    bag.push(keyValuePairs); // insert each key value pair to bag array
   }
-  return bag;
+  return bag; // return the bag array with key value pairs
 }

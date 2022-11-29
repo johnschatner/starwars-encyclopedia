@@ -573,6 +573,10 @@ video {
   margin: 1rem;
 }
 
+.mt-4 {
+  margin-top: 1rem;
+}
+
 .inline-block {
   display: inline-block;
 }
@@ -688,6 +692,10 @@ video {
 
 .rounded-xl {
   border-radius: 0.75rem;
+}
+
+.rounded-3xl {
+  border-radius: 1.5rem;
 }
 
 .rounded-md {
@@ -898,10 +906,6 @@ body {
   .lg\:min-w-0 {
     min-width: 0px;
   }
-}
-
-.\[\&\>li\]\:inline-block>li {
-  display: inline-block;
 }
 
 .\[\&\>li\]\:flex>li {
