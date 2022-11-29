@@ -152,27 +152,48 @@ function hideError() {
 function renderSearchResults(data) {
   console.log("Rendering search results");
   console.log(data);
-  let spanKeys = document.querySelectorAll("li>span.key");
-  let spanValues = document.querySelectorAll("li>span.value");
 
-  console.log(data.results[0]);
-  let keyValuePairs = Object.entries(data.results[0]);
-  console.log(keyValuePairs.length);
+  // Clone the element
+  const searchResults = document.querySelector(".search-results");
+  const btnNode = document.querySelector(".search-result");
 
-  // Make the array pretty
-  // let prettyArray = [];
-  // for (let i = 0; i < keyValuePairs.length; i++) {
-  //   prettyArray.push(capitalizeFirstLetter(keyValuePairs[i][0]));
-  //   prettyArray.push(capitalizeFirstLetter(keyValuePairs[i][1]));
-  // }
+  // How many to render
+  let pairs = getKeyValuePairs(data);
+  console.log(pairs);
 
-  for (let i = 0; i < spanKeys.length; i++) {
-    if (keyValuePairs[i][1] !== "n/a") {
-      spanKeys[i].innerText = keyValuePairs[i][0];
-      spanValues[i].innerText = keyValuePairs[i][1];
-    } else {
-      spanKeys[i].innerText = keyValuePairs[i + 1][0];
-      spanValues[i].innerText = keyValuePairs[i + 1][1];
+  debugger;
+  for (let j = 0; j < pairs.length; j++) {
+    // Append the amount of search results
+    let btnNodeClone = btnNode.cloneNode(true);
+    searchResults.appendChild(btnNodeClone);
+
+    // Rendering
+    let spanKeys = document.querySelectorAll("li>span.key");
+    let spanValues = document.querySelectorAll("li>span.value");
+
+    // Print the attributes for each search result
+    for (let i = 0; i < 4; i++) {
+      console.log(pairs[j][i][0]);
+      spanKeys[i].innerText = pairs[j][i][0];
+      console.log(pairs[j][i][1]);
+      spanValues[i].innerText = pairs[j][i][1];
     }
   }
+}
+
+// if (pairs[i][i][1] !== "n/a") {
+//   spanKeys[i].innerText = pairs[i][i][0];
+//   spanValues[i].innerText = pairs[i][i][1];
+// } else {
+//   console.log("Not applicable");
+// }
+
+function getKeyValuePairs(data) {
+  let bag = [];
+  for (let i = 0; i < data.count; i++) {
+    console.log(`I am the ${i} element`);
+    let keyValuePairs = Object.entries(data.results[i]);
+    bag.push(keyValuePairs);
+  }
+  return bag;
 }
