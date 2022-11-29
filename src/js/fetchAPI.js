@@ -47,6 +47,9 @@ function getSwapiData() {
           searchField.setAttribute("placeholder", "Search SWAPI");
           renderSearchResults(data);
         }
+      })
+      .catch((e) => {
+        console.error(e);
       });
   } else {
     console.log("TOO FEW CHARACTERS");
@@ -149,22 +152,27 @@ function hideError() {
 function renderSearchResults(data) {
   console.log("Rendering search results");
   console.log(data);
-  const searchResults = document.querySelector(".search-results");
-  const spanKeys = document.querySelectorAll("li>span.key");
-  const spanValues = document.querySelectorAll("li>span.value");
+  let spanKeys = document.querySelectorAll("li>span.key");
+  let spanValues = document.querySelectorAll("li>span.value");
 
   console.log(data.results[0]);
-  let keys = Object.keys(data.results[0]);
-  let values = Object.values(data.results[0]);
+  let keyValuePairs = Object.entries(data.results[0]);
+  console.log(keyValuePairs);
 
-  for (let i = 0; i < spanKeys.length; i++) {
-    spanKeys[i].innerText = keys[i];
-  }
-  for (let i = 0; i < spanValues.length; i++) {
-    if (values[i] === "n/a") {
-      spanValues[i].innerText = "No hair";
+  // Make the array pretty
+  // let prettyArray = [];
+  // for (let i = 0; i < keyValuePairs.length; i++) {
+  //   prettyArray.push(capitalizeFirstLetter(keyValuePairs[i][0]));
+  //   prettyArray.push(capitalizeFirstLetter(keyValuePairs[i][1]));
+  // }
+
+  for (let i = 0; i < keyValuePairs.length; i++) {
+    if (keyValuePairs[i][1] !== "n/a") {
+      spanKeys[i].innerText = keyValuePairs[i][0];
+      spanValues[i].innerText = keyValuePairs[i][1];
     } else {
-      spanValues[i].innerText = values[i];
+      spanKeys[i].innerText = keyValuePairs[i + 1][0];
+      spanValues[i].innerText = keyValuePairs[i + 1][1];
     }
   }
 }
