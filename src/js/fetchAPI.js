@@ -47,6 +47,9 @@ function getSwapiData() {
           searchField.setAttribute("placeholder", "Search SWAPI");
           renderSearchResults(data);
         }
+      })
+      .catch((e) => {
+        console.error(e);
       });
   } else {
     console.log("TOO FEW CHARACTERS");
@@ -149,11 +152,27 @@ function hideError() {
 function renderSearchResults(data) {
   console.log("Rendering search results");
   console.log(data);
-  const searchResults = document.querySelector(".search-results");
-  const spanResults = document.querySelectorAll("li>span");
-  console.log(spanResults);
+  let spanKeys = document.querySelectorAll("li>span.key");
+  let spanValues = document.querySelectorAll("li>span.value");
 
-  for (let i = 0; i < spanResults.length; i++) {
-    spanResults[i].innerText = data.results[0].height;
+  console.log(data.results[0]);
+  let keyValuePairs = Object.entries(data.results[0]);
+  console.log(keyValuePairs);
+
+  // Make the array pretty
+  // let prettyArray = [];
+  // for (let i = 0; i < keyValuePairs.length; i++) {
+  //   prettyArray.push(capitalizeFirstLetter(keyValuePairs[i][0]));
+  //   prettyArray.push(capitalizeFirstLetter(keyValuePairs[i][1]));
+  // }
+
+  for (let i = 0; i < keyValuePairs.length; i++) {
+    if (keyValuePairs[i][1] !== "n/a") {
+      spanKeys[i].innerText = keyValuePairs[i][0];
+      spanValues[i].innerText = keyValuePairs[i][1];
+    } else {
+      spanKeys[i].innerText = keyValuePairs[i + 1][0];
+      spanValues[i].innerText = keyValuePairs[i + 1][1];
+    }
   }
 }

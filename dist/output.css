@@ -682,6 +682,10 @@ video {
   justify-content: center;
 }
 
+.gap-8 {
+  gap: 2rem;
+}
+
 .rounded-xl {
   border-radius: 0.75rem;
 }
@@ -894,4 +898,20 @@ body {
   .lg\:min-w-0 {
     min-width: 0px;
   }
+}
+
+.\[\&\>li\]\:inline-block>li {
+  display: inline-block;
+}
+
+.\[\&\>li\]\:flex>li {
+  display: flex;
+}
+
+.\[\&\>li\]\:flex-col>li {
+  flex-direction: column;
+}
+
+.\[\&\>li\]\:flex-wrap>li {
+  flex-wrap: wrap;
 }
