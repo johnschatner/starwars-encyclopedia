@@ -164,6 +164,9 @@ function renderSearchResults(data) {
   searchResults.classList.remove("hidden");
   const btnNode = document.querySelector(".search-result");
 
+  searchResults.innerHTML = ""; // Clear previous search results
+  searchResults.appendChild(btnNode); // Clear previous search results
+
   // Run a functio to return how many results to render
   let pairs = getKeyValuePairs(data);
   console.log(pairs);
@@ -187,10 +190,8 @@ function renderSearchResults(data) {
   }
 }
 
-// CLEAR SEARCH RESULT AFTER EACH SEARCH [TODO]
-// CLEAR SEARCH RESULT AFTER EACH SEARCH [TODO]
-// CLEAR SEARCH RESULT AFTER EACH SEARCH [TODO]
-// CLEAR SEARCH RESULT AFTER EACH SEARCH [TODO]
+// CLEAR SEARCH RESULT AFTER EACH SEARCH [DONE]
+// LINE: 167-168
 
 function getKeyValuePairs(data) {
   let bag = []; // declare empty array
