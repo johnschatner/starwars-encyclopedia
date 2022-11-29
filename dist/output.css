@@ -569,12 +569,16 @@ video {
   z-index: 20;
 }
 
-.m-4 {
-  margin: 1rem;
-}
-
 .mt-4 {
   margin-top: 1rem;
+}
+
+.mb-4 {
+  margin-bottom: 1rem;
+}
+
+.block {
+  display: block;
 }
 
 .inline-block {
@@ -694,10 +698,6 @@ video {
   border-radius: 0.75rem;
 }
 
-.rounded-3xl {
-  border-radius: 1.5rem;
-}
-
 .rounded-md {
   border-radius: 0.375rem;
 }
@@ -787,6 +787,14 @@ video {
   text-align: center;
 }
 
+.font-bold {
+  font-weight: 700;
+}
+
+.uppercase {
+  text-transform: uppercase;
+}
+
 .text-white {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
@@ -861,6 +869,15 @@ body {
   overflow-x: hidden;
 }
 
+.first-letter\:uppercase::first-letter {
+  text-transform: uppercase;
+}
+
+.even\:bg-slate-400:nth-child(even) {
+  --tw-bg-opacity: 1;
+  background-color: rgb(148 163 184 / var(--tw-bg-opacity));
+}
+
 .hover\:border-neutral-500:hover {
   --tw-border-opacity: 1;
   border-color: rgb(115 115 115 / var(--tw-border-opacity));
@@ -918,4 +935,23 @@ body {
 
 .\[\&\>li\]\:flex-wrap>li {
   flex-wrap: wrap;
+}
+
+.\[\&\>li\]\:even\:bg-slate-400:nth-child(even)>li {
+  --tw-bg-opacity: 1;
+  background-color: rgb(148 163 184 / var(--tw-bg-opacity));
+}
+
+.\[\&\:not\(\:last-child\)\]\:mb-4:not(:last-child) {
+  margin-bottom: 1rem;
+}
+
+.\[\&\>button\]\:bg-slate-400>button {
+  --tw-bg-opacity: 1;
+  background-color: rgb(148 163 184 / var(--tw-bg-opacity));
+}
+
+.\[\&\>button\]\:even\:bg-slate-400:nth-child(even)>button {
+  --tw-bg-opacity: 1;
+  background-color: rgb(148 163 184 / var(--tw-bg-opacity));
 }

@@ -1,0 +1,18 @@
+.search-results button:nth-child(2) {
+  display: none;
+}
+
+.search-result {
+  min-width: 100%;
+}
+.search-result ul {
+  display: flex;
+  justify-content: space-between;
+}
+.search-result li {
+  flex: 1;
+  text-align: left;
+}
+span.key {
+  font-size: 0.6rem;
+}

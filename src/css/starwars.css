@@ -4,10 +4,6 @@
   src: url(/src/assets/itc-serif.otf);
 }
 
-.search-results button:nth-child(2) {
-  display: none;
-}
-
 /* Enable/Disable Label */
 .animation-toggle input:checked + .toggle {
   fill: #de1529;
