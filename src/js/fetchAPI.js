@@ -157,7 +157,7 @@ function renderSearchResults(data) {
 
   console.log(data.results[0]);
   let keyValuePairs = Object.entries(data.results[0]);
-  console.log(keyValuePairs);
+  console.log(keyValuePairs.length);
 
   // Make the array pretty
   // let prettyArray = [];
@@ -166,7 +166,7 @@ function renderSearchResults(data) {
   //   prettyArray.push(capitalizeFirstLetter(keyValuePairs[i][1]));
   // }
 
-  for (let i = 0; i < keyValuePairs.length; i++) {
+  for (let i = 0; i < spanKeys.length; i++) {
     if (keyValuePairs[i][1] !== "n/a") {
       spanKeys[i].innerText = keyValuePairs[i][0];
       spanValues[i].innerText = keyValuePairs[i][1];
