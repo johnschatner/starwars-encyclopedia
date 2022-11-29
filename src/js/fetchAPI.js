@@ -161,7 +161,6 @@ function renderSearchResults(data) {
   let pairs = getKeyValuePairs(data);
   console.log(pairs);
 
-  debugger;
   for (let j = 0; j < pairs.length; j++) {
     // Append the amount of search results
     let btnNodeClone = btnNode.cloneNode(true);
