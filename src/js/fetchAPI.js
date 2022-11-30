@@ -4,20 +4,20 @@ const akababUrl = "https://akabab.github.io/starwars-api/api/all.json";
 const searchParameter = "?search=";
 
 // get Loading element
-const loader = document.querySelector("#loading");
+const loader = document.querySelector("#searchBtn");
 // show loading
 function displayLoading() {
   loader.classList.add("display");
+  loader.classList.remove("text-zinc-700");
+  loader.classList.add("text-yellow-300");
   //Enables pointer-events-none so inputs cant be made while loading occurs
   searchBar.classList.add("pointer-events-none");
-  // to stop loading after some time
-  setTimeout(() => {
-    loader.classList.remove("display");
-  }, 5000);
 }
 // hide loading
 function hideLoading() {
   loader.classList.remove("display");
+  loader.classList.add("text-zinc-700");
+  loader.classList.remove("text-yellow-300");
   //Disables pointer-events-none so inputs can be made
   searchBar.classList.remove("pointer-events-none");
 }
@@ -163,6 +163,9 @@ function renderSearchResults(data) {
   let searchResults = document.querySelector(".search-results");
   searchResults.classList.remove("hidden");
   const btnNode = document.querySelector(".search-result");
+  btnNode.addEventListener("click", renderModal);
+  let lastElement = [data.results.length - 1];
+  btnNode.data = data.results[lastElement];
 
   searchResults.innerHTML = ""; // Clear previous search results
   searchResults.appendChild(btnNode); // Clear previous search results
@@ -171,6 +174,9 @@ function renderSearchResults(data) {
   for (let j = 0; j < data.count; j++) {
     // Append the amount of search results
     let btnNodeClone = btnNode.cloneNode(true); // clone a new search result
+    btnNodeClone.setAttribute("id", `clone${j}`);
+    btnNodeClone.addEventListener("click", renderModal, false);
+    btnNodeClone.data = data.results[j - 1]; // assign the API response to the button
     searchResults.appendChild(btnNodeClone); // append a new search result
 
     // Get each span tag with applicable class (key || value)
@@ -194,3 +200,7 @@ function renderSearchResults(data) {
 
 // CLEAR SEARCH RESULT AFTER EACH SEARCH [DONE]
 // LINE: 167-168
+function renderModal(data) {
+  console.log("rendering modal");
+  console.log(data.currentTarget.data);
+}
