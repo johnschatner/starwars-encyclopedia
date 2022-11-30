@@ -47,9 +47,11 @@
   0% {
     opacity: 0;
     top: 50%;
+    scale: 0.9;
   }
   100% {
-    top: 30%;
     opacity: 100;
+    top: 30%;
+    scale: 1;
   }
 }
