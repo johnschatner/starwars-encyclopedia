@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="/src/css/starwars.css" />
     <link rel="stylesheet" href="/src/css/searchResults.css" />
     <link rel="stylesheet" href="/src/css/loading.css" />
+    <link rel="stylesheet" href="/src/css/modal.css" />
     <link rel="stylesheet" href="/dist/output.css" />
     <script src="/src/js/starwars.js" defer></script>
     <script src="/src/js/main.js" defer></script>
@@ -187,6 +188,35 @@ c-24.75-24.719-28.75-60.828-8.969-80.625C333.656,98.766,369.75,102.766,394.469,1
         </div>
         <div class="result text-white flex absolute"></div>
       </form>
+      <section class="modal modalHidden">
+        <div class="flex">
+          <button class="btn-close">⨉</button>
+        </div>
+        <ul class="flex gap-8 [&>li]:flex [&>li]:flex-col [&>li]:flex-wrap">
+          <li class="search-image">
+            <!-- <span class="img-key"></span> -->
+          </li>
+          <li class="search-title">
+            <span class="modalKey uppercase font-bold"></span>
+            <span class="modalValue"></span>
+          </li>
+          <li class="search-attribute-1">
+            <span class="modalKey uppercase font-bold"></span>
+            <span class="modalValue"></span>
+          </li>
+          <li class="search-attribute-2">
+            <span class="modalKey uppercase font-bold"></span>
+            <span class="modalValue"></span>
+          </li>
+          <li class="search-attribute-3">
+            <span class="modalKey uppercase font-bold"></span>
+            <span class="modalValue"></span>
+          </li>
+        </ul>
+      </section>
+
+      <div class="overlay modalHidden"></div>
+      <button class="btn btn-open">Open Modal</button>
       <div id="randomCardDisplay"></div>
       <!-- Loading spinner -->
       <div id="loading"></div>

@@ -917,6 +917,10 @@ body {
   }
 }
 
+.\[\&\>button\]\:mb-4>button {
+  margin-bottom: 1rem;
+}
+
 .\[\&\>li\]\:flex>li {
   display: flex;
 }
@@ -927,8 +931,4 @@ body {
 
 .\[\&\>li\]\:flex-wrap>li {
   flex-wrap: wrap;
-}
-
-.\[\&\>button\]\:mb-4>button {
-  margin-bottom: 1rem;
 }

@@ -200,7 +200,28 @@ function renderSearchResults(data) {
 
 // CLEAR SEARCH RESULT AFTER EACH SEARCH [DONE]
 // LINE: 167-168
+const modal = document.querySelector(".modal");
+const overlay = document.querySelector(".overlay");
+const openModalBtn = document.querySelector(".btn-open");
+const closeModalBtn = document.querySelector(".btn-close");
+const läserTestar = document.querySelector("#testar");
+
 function renderModal(data) {
   console.log("rendering modal");
+
   console.log(data.currentTarget.data);
+  openModal();
 }
+
+const openModal = function () {
+  modal.classList.remove("modalHidden");
+  overlay.classList.remove("modalHidden");
+};
+const closeModal = function () {
+  console.log("test");
+  modal.classList.add("modalHidden");
+  overlay.classList.add("modalHidden");
+};
+
+openModalBtn.addEventListener("click", openModal);
+closeModalBtn.addEventListener("click", closeModal);
