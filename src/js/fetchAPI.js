@@ -83,7 +83,6 @@ async function getAkababData(akababUrl) {
 }
 
 async function searchAkabab(data) {
-  console.log(data);
   let searchValue = document.querySelector("#searchField").value;
   searchValue = searchValue.toLowerCase();
   const people = []; // Create new object to store "Name" and "Image"
@@ -109,7 +108,6 @@ async function searchAkabab(data) {
     people.push(person);
   }
 
-  console.log(people);
   const matches = filterIt(people, searchValue);
   return await matches;
 }
@@ -204,13 +202,29 @@ const modal = document.querySelector(".modal");
 const overlay = document.querySelector(".overlay");
 const openModalBtn = document.querySelector(".btn-open");
 const closeModalBtn = document.querySelector(".btn-close");
-const läserTestar = document.querySelector("#testar");
+const testImg = document.createElement("img");
 
 function renderModal(data) {
   console.log("rendering modal");
 
   console.log(data.currentTarget.data);
   openModal();
+
+  for (var key in data.currentTarget.data) {
+    const searchResultObject = data.currentTarget.data;
+    const keys = Object.keys(searchResultObject);
+    const values = Object.values(searchResultObject);
+
+    console.log(`${keys}: ${data.currentTarget.data[values]}`);
+
+    let modalKeys = modal.querySelectorAll("li>span.modalKey");
+    let modalValues = modal.querySelectorAll("li>span.modalValue");
+
+    for (let i = 0; i < 12; i++) {
+      modalKeys[i].innerText = keys[i];
+      modalValues[i].innerText = values[i];
+    }
+  }
 }
 
 const openModal = function () {
