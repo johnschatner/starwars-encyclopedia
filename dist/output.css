@@ -670,6 +670,10 @@ video {
   flex-direction: column;
 }
 
+.flex-col-reverse {
+  flex-direction: column-reverse;
+}
+
 .flex-wrap {
   flex-wrap: wrap;
 }
@@ -923,4 +927,8 @@ body {
 
 .\[\&\>li\]\:flex-wrap>li {
   flex-wrap: wrap;
+}
+
+.\[\&\>button\]\:mb-4>button {
+  margin-bottom: 1rem;
 }

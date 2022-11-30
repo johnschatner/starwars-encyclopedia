@@ -164,7 +164,8 @@ function renderSearchResults(data) {
   searchResults.classList.remove("hidden");
   const btnNode = document.querySelector(".search-result");
   btnNode.addEventListener("click", renderModal);
-  btnNode.data = data.results[1];
+  let lastElement = [data.results.length - 1];
+  btnNode.data = data.results[lastElement];
 
   searchResults.innerHTML = ""; // Clear previous search results
   searchResults.appendChild(btnNode); // Clear previous search results
