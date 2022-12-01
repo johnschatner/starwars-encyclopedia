@@ -156,8 +156,6 @@ async function renderSearchResults(data) {
   } else {
     console.log("notpeople");
   }
-  let imgArray = await searchAkabab();
-  console.log(imgArray);
 
   // Gets the element to clone into (searchResults) and the element
   // to clone (btnNode)
@@ -170,6 +168,7 @@ async function renderSearchResults(data) {
 
   searchResults.innerHTML = ""; // Clear previous search results
   searchResults.appendChild(btnNode); // Clear previous search results
+
   let names = [];
   // iterate over each API response (data.count)
   for (let j = 0; j < data.count; j++) {
@@ -203,32 +202,61 @@ async function renderSearchResults(data) {
     // } else {
     //   console.log(false);
   }
+
+  /// HIGHLY EXPERIMENTAL
+  //get hidden button
+  let cloneZero = document.querySelectorAll("#clone0");
+  cloneZero[0].remove();
   // Populate image-tags
+  let imgArray = await searchAkabab();
+  // Get all the span tags containg the <img>
   let spanImg = searchResults.querySelectorAll("li>span.img-key>img");
+  // Get all the span.value tags
+  let spanNamesNodes = document.querySelectorAll("li.search-title>span.value");
+
+  // Clear previous pictures
+
+  console.log(spanNamesNodes);
+  // Declare trimmed nodeList
   let spanNamesTrimmed = [];
-  const spanNamesNodes = document.querySelectorAll(
-    "li.search-title>span.value"
-  );
+  // Trim spanNamesNodes then push to spanNamesTrimmed
   for (let i = 0; i < spanNamesNodes.length; i++) {
     if (spanNamesNodes[i].innerText !== "") {
-      spanNamesTrimmed.push(spanNamesNodes[i]);
+      spanNamesTrimmed.push({
+        name: spanNamesNodes[i].innerText.toLowerCase(),
+      });
     }
   }
-
-  spanNamesTrimmed = spanNamesTrimmed.reverse();
+  console.log(spanNamesTrimmed);
+  // Trim imgArray then push to trimmedImgArray
+  let trimmedImgArray = [];
   for (let i = 0; i < spanNamesTrimmed.length; i++) {
-    console.log(imgArray[i].name);
-    for (let j = 0; j < spanNamesTrimmed.length; j++) {
-      if (spanNamesTrimmed[j].innerText.toLowerCase() === imgArray[j].name) {
-        console.log(spanNamesTrimmed[j].innerText);
-        console.log(imgArray[j].name);
+    trimmedImgArray.push({ name: imgArray[i].name, image: imgArray[i].image });
+  }
+  console.log(trimmedImgArray);
+
+  // Begin the attempt to map names and images
+  for (let i = 0; i < spanNamesTrimmed.length; i++) {
+    console.log(`i = ${i}`);
+    for (let j = 0; j < trimmedImgArray.length; j++) {
+      if (spanNamesTrimmed[i].name === trimmedImgArray[j].name) {
+        console.log(
+          `${spanNamesTrimmed[i].name} === ${trimmedImgArray[j].name}`
+        );
+
+        // // Attempt to push images onto modal window background
+        // let modalWindow = document.querySelector(".modal");
+        // modalWindow.style.backgroundImage = `url(${spanImg[i].src})`;
+        // console.log(modalWindow.style.backgroundImage);
+
+        spanImg[i].src = trimmedImgArray[j].image;
+        spanImg[i].alt = trimmedImgArray[j].name;
       }
     }
   }
 }
 
-// CLEAR SEARCH RESULT AFTER EACH SEARCH [DONE]
-// LINE: 167-168
+// Modal
 const modal = document.querySelector(".modal");
 const overlay = document.querySelector(".overlay");
 const openModalBtn = document.querySelector(".btn-open");
