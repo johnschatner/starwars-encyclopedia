@@ -211,23 +211,23 @@ function renderModal(data) {
   console.log(data.currentTarget.data);
   openModal();
 
-  for (var key in data.currentTarget.data) {
-    const searchResultObject = data.currentTarget.data;
-    const keys = Object.keys(searchResultObject);
-    const values = Object.values(searchResultObject);
+  const searchResultObject = data.currentTarget.data;
+  const keys = Object.keys(searchResultObject);
+  const values = Object.values(searchResultObject);
 
-    console.log(`${keys}: ${values}`);
+  for (let i = 0; i < keys.length; i++) {
+    // console.log(`${keys}: ${values}`);
 
     let modalKeys = modal.querySelectorAll("li>span.modalKey");
     let modalValues = modal.querySelectorAll("li>span.modalValue");
 
-    // for (let i = 0; i < values.length; i++) {
-    //   if (values[i].includes("http")) {
-    //     console.log(`${values[i]} includes https`);
-    //   }
-    // }
-
-    for (let i = 0; i < modalKeys.length; i++) {
+    if (
+      values[i].includes("http") ||
+      values[i].length === 0 ||
+      Array.isArray(values[i])
+    ) {
+      console.log(`${values[i]} is invalid`);
+    } else {
       modalKeys[i].innerText = keys[i];
       modalValues[i].innerText = values[i];
     }
