@@ -39,7 +39,6 @@ function getSwapiData() {
       .then((data) => {
         hideLoading();
         hideError();
-        //checkIfPeople();
         if (data.count === 0) {
           noResults();
         } else {
@@ -65,11 +64,7 @@ function checkIfPeople() {
   let selectValue = document.querySelector("#listSelector").value;
   console.log(selectValue);
   if (selectValue === "people") {
-    getAkababData(akababUrl).then((data) => {
-      searchAkabab(data).then((matches) => {
-        renderAkabab(matches);
-      });
-    });
+    return true;
   } else {
     console.log("(❁´◡`❁)");
   }
@@ -82,7 +77,8 @@ async function getAkababData(akababUrl) {
   return data;
 }
 
-async function searchAkabab(data) {
+async function searchAkabab() {
+  let data = await getAkababData(akababUrl);
   let searchValue = document.querySelector("#searchField").value;
   searchValue = searchValue.toLowerCase();
   const people = []; // Create new object to store "Name" and "Image"
@@ -152,9 +148,16 @@ function hideError() {
 }
 
 // Render the search results from the API call
-function renderSearchResults(data) {
+async function renderSearchResults(data) {
   console.log("Rendering search results");
   console.log(data); // Logs the API response
+  if (checkIfPeople) {
+    console.log(true);
+    let imgArray = await searchAkabab();
+    console.log(imgArray);
+  } else {
+    console.log("notpeople");
+  }
 
   // Gets the element to clone into (searchResults) and the element
   // to clone (btnNode)
@@ -239,7 +242,6 @@ function renderModal(data) {
     }
   }
 }
-
 const openModal = function () {
   modal.classList.remove("modalHidden");
   overlay.classList.remove("modalHidden");
