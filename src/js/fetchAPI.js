@@ -173,7 +173,7 @@ function renderSearchResults(data) {
     // Append the amount of search results
     let btnNodeClone = btnNode.cloneNode(true); // clone a new search result
     btnNodeClone.setAttribute("id", `clone${j}`);
-    btnNodeClone.addEventListener("click", renderModal, false);
+    btnNodeClone.addEventListener("click", renderModal);
     btnNodeClone.data = data.results[j - 1]; // assign the API response to the button
     searchResults.appendChild(btnNodeClone); // append a new search result
 
@@ -207,31 +207,33 @@ const testImg = document.createElement("img");
 
 function renderModal(data) {
   console.log("rendering modal");
-
-  console.log(data.currentTarget.data);
   openModal();
 
   const searchResultObject = data.currentTarget.data;
+  console.log(searchResultObject);
+
   const keys = Object.keys(searchResultObject);
+  console.log(keys);
   const values = Object.values(searchResultObject);
+  console.log(values);
 
   for (let i = 0; i < keys.length; i++) {
     // console.log(`${keys}: ${values}`);
-
     let modalKeys = modal.querySelectorAll("li>span.modalKey");
     let modalValues = modal.querySelectorAll("li>span.modalValue");
 
-    if (
-      values[i].includes("http") ||
-      values[i].length === 0 ||
-      Array.isArray(values[i])
-    ) {
+    if (values[i].length === 0 || Array.isArray(values[i])) {
       console.log(`${values[i]} is invalid`);
+      modalKeys[i].innerText = "";
+      modalValues[i].innerText = "";
     } else {
       modalKeys[i].innerText = keys[i];
       modalValues[i].innerText = values[i];
     }
   }
+  // Unsure how this works, but the idea is to remove undesired populated
+  // span tags from previous loop since we don't dynamically generate
+  // the span tags (hardcoded in HTML)
 }
 
 const openModal = function () {
