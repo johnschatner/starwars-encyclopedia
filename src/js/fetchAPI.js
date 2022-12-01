@@ -59,17 +59,6 @@ function getSwapiData() {
   }
 }
 
-// Run getSwapiData func
-function checkIfPeople() {
-  let selectValue = document.querySelector("#listSelector").value;
-  console.log(selectValue);
-  if (selectValue === "people") {
-    return true;
-  } else {
-    console.log("(❁´◡`❁)");
-  }
-}
-
 // Get response from akabab
 async function getAkababData(akababUrl) {
   const response = await fetch(akababUrl);
@@ -151,11 +140,6 @@ function hideError() {
 async function renderSearchResults(data) {
   console.log("Rendering search results");
   console.log(data); // Logs the API response
-  if (checkIfPeople) {
-    console.log(true);
-  } else {
-    console.log("notpeople");
-  }
 
   // Gets the element to clone into (searchResults) and the element
   // to clone (btnNode)
@@ -228,30 +212,44 @@ async function renderSearchResults(data) {
     }
   }
   console.log(spanNamesTrimmed);
-  // Trim imgArray then push to trimmedImgArray
-  let trimmedImgArray = [];
-  for (let i = 0; i < spanNamesTrimmed.length; i++) {
-    trimmedImgArray.push({ name: imgArray[i].name, image: imgArray[i].image });
-  }
-  console.log(trimmedImgArray);
 
   // Begin the attempt to map names and images
-  for (let i = 0; i < spanNamesTrimmed.length; i++) {
-    console.log(`i = ${i}`);
-    for (let j = 0; j < trimmedImgArray.length; j++) {
-      if (spanNamesTrimmed[i].name === trimmedImgArray[j].name) {
-        console.log(
-          `${spanNamesTrimmed[i].name} === ${trimmedImgArray[j].name}`
-        );
+  let selectValue = document.querySelector("#listSelector").value;
+  if (selectValue === "people") {
+    // Trim imgArray then push to trimmedImgArray
+    let trimmedImgArray = [];
+    for (let i = 0; i < spanNamesTrimmed.length; i++) {
+      trimmedImgArray.push({
+        name: imgArray[i].name,
+        image: imgArray[i].image,
+      });
+    }
+    console.log(trimmedImgArray);
 
-        // // Attempt to push images onto modal window background
-        // let modalWindow = document.querySelector(".modal");
-        // modalWindow.style.backgroundImage = `url(${spanImg[i].src})`;
-        // console.log(modalWindow.style.backgroundImage);
+    console.log("We are people");
+    for (let i = 0; i < spanNamesTrimmed.length; i++) {
+      console.log(`i = ${i}`);
+      for (let j = 0; j < trimmedImgArray.length; j++) {
+        if (spanNamesTrimmed[i].name === trimmedImgArray[j].name) {
+          console.log(
+            `${spanNamesTrimmed[i].name} === ${trimmedImgArray[j].name}`
+          );
 
-        spanImg[i].src = trimmedImgArray[j].image;
-        spanImg[i].alt = trimmedImgArray[j].name;
+          // // Attempt to push images onto modal window background
+          // let modalWindow = document.querySelector(".modal");
+          // modalWindow.style.backgroundImage = `url(${spanImg[i].src})`;
+          // console.log(modalWindow.style.backgroundImage);
+
+          spanImg[i].src = trimmedImgArray[j].image;
+          spanImg[i].alt = trimmedImgArray[j].name;
+        }
       }
+    }
+  } else {
+    console.log("Removed src");
+    for (let i = 0; i < spanNamesTrimmed.length; i++) {
+      spanImg[i].src = "";
+      spanImg[i].alt = "";
     }
   }
 }
