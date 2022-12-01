@@ -202,6 +202,7 @@ const modal = document.querySelector(".modal");
 const overlay = document.querySelector(".overlay");
 const openModalBtn = document.querySelector(".btn-open");
 const closeModalBtn = document.querySelector(".btn-close");
+const closeModalOverlay = document.querySelector(".overlay");
 const testImg = document.createElement("img");
 
 function renderModal(data) {
@@ -215,12 +216,18 @@ function renderModal(data) {
     const keys = Object.keys(searchResultObject);
     const values = Object.values(searchResultObject);
 
-    console.log(`${keys}: ${data.currentTarget.data[values]}`);
+    console.log(`${keys}: ${values}`);
 
     let modalKeys = modal.querySelectorAll("li>span.modalKey");
     let modalValues = modal.querySelectorAll("li>span.modalValue");
 
-    for (let i = 0; i < 12; i++) {
+    // for (let i = 0; i < values.length; i++) {
+    //   if (values[i].includes("http")) {
+    //     console.log(`${values[i]} includes https`);
+    //   }
+    // }
+
+    for (let i = 0; i < modalKeys.length; i++) {
       modalKeys[i].innerText = keys[i];
       modalValues[i].innerText = values[i];
     }
@@ -239,3 +246,4 @@ const closeModal = function () {
 
 openModalBtn.addEventListener("click", openModal);
 closeModalBtn.addEventListener("click", closeModal);
+closeModalOverlay.addEventListener("click", closeModal);

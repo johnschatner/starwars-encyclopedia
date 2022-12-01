@@ -738,11 +738,6 @@ video {
   background-color: rgb(253 224 71 / var(--tw-bg-opacity));
 }
 
-.bg-white {
-  --tw-bg-opacity: 1;
-  background-color: rgb(255 255 255 / var(--tw-bg-opacity));
-}
-
 .fill-neutral-700 {
   fill: #404040;
 }
@@ -777,6 +772,10 @@ video {
 
 .pl-16 {
   padding-left: 4rem;
+}
+
+.pr-4 {
+  padding-right: 1rem;
 }
 
 .text-center {
@@ -867,7 +866,7 @@ video {
 }
 
 body {
-  overflow-x: hidden;
+  overflow: hidden;
 }
 
 .hover\:border-neutral-500:hover {
