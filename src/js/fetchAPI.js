@@ -153,11 +153,11 @@ async function renderSearchResults(data) {
   console.log(data); // Logs the API response
   if (checkIfPeople) {
     console.log(true);
-    let imgArray = await searchAkabab();
-    console.log(imgArray);
   } else {
     console.log("notpeople");
   }
+  let imgArray = await searchAkabab();
+  console.log(imgArray);
 
   // Gets the element to clone into (searchResults) and the element
   // to clone (btnNode)
@@ -170,7 +170,7 @@ async function renderSearchResults(data) {
 
   searchResults.innerHTML = ""; // Clear previous search results
   searchResults.appendChild(btnNode); // Clear previous search results
-
+  let names = [];
   // iterate over each API response (data.count)
   for (let j = 0; j < data.count; j++) {
     // Append the amount of search results
@@ -190,11 +190,39 @@ async function renderSearchResults(data) {
     const searchResultObject = data.results[j];
     const keys = Object.keys(searchResultObject);
     const values = Object.values(searchResultObject);
+    names.push(data.results[j].name);
 
     // Loopa 4 gånger
     for (let i = 0; i < 4; i++) {
       spanKeys[i].innerText = keys[i];
       spanValues[i].innerText = values[i];
+    }
+    // if (imgArray[j].name === spanValues[j].innerText) {
+    //   console.log(true);
+    //   spanImg[j].src = imgArray[j].image;
+    // } else {
+    //   console.log(false);
+  }
+  // Populate image-tags
+  let spanImg = searchResults.querySelectorAll("li>span.img-key>img");
+  let spanNamesTrimmed = [];
+  const spanNamesNodes = document.querySelectorAll(
+    "li.search-title>span.value"
+  );
+  for (let i = 0; i < spanNamesNodes.length; i++) {
+    if (spanNamesNodes[i].innerText !== "") {
+      spanNamesTrimmed.push(spanNamesNodes[i]);
+    }
+  }
+
+  spanNamesTrimmed = spanNamesTrimmed.reverse();
+  for (let i = 0; i < spanNamesTrimmed.length; i++) {
+    console.log(imgArray[i].name);
+    for (let j = 0; j < spanNamesTrimmed.length; j++) {
+      if (spanNamesTrimmed[j].innerText.toLowerCase() === imgArray[j].name) {
+        console.log(spanNamesTrimmed[j].innerText);
+        console.log(imgArray[j].name);
+      }
     }
   }
 }
