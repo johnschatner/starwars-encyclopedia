@@ -3,12 +3,12 @@
   flex-direction: column;
   justify-content: center;
   gap: 0.4rem;
-  max-width: 600px;
+  max-width: 700px;
   padding: 1.3rem;
   min-height: 250px;
 
   position: absolute;
-  top: 30%;
+  top: 25%;
   left: 50%;
   transform: translateX(-50%);
 

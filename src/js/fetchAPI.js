@@ -212,6 +212,7 @@ function renderModal(data) {
   const searchResultObject = data.currentTarget.data;
   console.log(searchResultObject);
 
+  const listItems = document.querySelectorAll(".modal > ul > li");
   const keys = Object.keys(searchResultObject);
   console.log(keys);
   const values = Object.values(searchResultObject);
@@ -226,14 +227,17 @@ function renderModal(data) {
       console.log(`${values[i]} is invalid`);
       modalKeys[i].innerText = "";
       modalValues[i].innerText = "";
+
+      // Hide unpopulated <li>
+      listItems[i + 1].classList.add("!hidden");
     } else {
       modalKeys[i].innerText = keys[i];
       modalValues[i].innerText = values[i];
+
+      // Show previously hidden <li>
+      listItems[i + 1].classList.remove("!hidden");
     }
   }
-  // Unsure how this works, but the idea is to remove undesired populated
-  // span tags from previous loop since we don't dynamically generate
-  // the span tags (hardcoded in HTML)
 }
 
 const openModal = function () {
