@@ -21,6 +21,16 @@ span.value {
   white-space: nowrap;
   overflow: hidden;
 }
+span.img-key {
+  height: 100%;
+  overflow: hidden;
+  border-top-left-radius: 30px;
+  border-bottom-left-radius: 30px;
+}
+span.img-key img {
+  overflow: hidden;
+  margin-top: -23px;
+}
 
 /* Adding css for positioning handle */
 /* Added css for handle animation */
