@@ -1,6 +1,8 @@
 /////////////////////////////////////////
 // Animation Toggle
 // Get cookie
+
+// Generisk funktion från w3schools för att hämta en cookie
 function getCookie(cname) {
   let name = cname + "=";
   let decodedCookie = decodeURIComponent(document.cookie);

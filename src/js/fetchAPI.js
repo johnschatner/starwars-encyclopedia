@@ -1,7 +1,7 @@
 // Global variables
-const swapiUrl = "https://swapi.dev/api/";
-const akababUrl = "https://akabab.github.io/starwars-api/api/all.json";
-const searchParameter = "?search=";
+const swapiUrl = "https://swapi.dev/api/"; // SWAPI API
+const akababUrl = "https://akabab.github.io/starwars-api/api/all.json"; // AKABAB API (Secondary for complementary images)
+const searchParameter = "?search="; // Sökterm som vi lägger till SWAPI URL strängen för att kunna söka i SWAPIs resurser
 
 // get Loading element
 const loader = document.querySelector("#searchBtn");
@@ -25,32 +25,44 @@ function hideLoading() {
 // Main function to fetch data from API
 // Get response from SWAPI
 function getSwapiData() {
-  let selectValue = document.querySelector("#listSelector").value;
-  let searchValue = document.querySelector("#searchField").value;
-  let searchTerm = swapiUrl + selectValue + searchParameter + searchValue;
-  console.log(searchTerm);
+  let selectValue = document.querySelector("#listSelector").value; // vilken kategori vi ska söka i
+  let searchValue = document.querySelector("#searchField").value; // vad vi ska söka på
+  let searchTerm = swapiUrl + selectValue + searchParameter + searchValue; // bygg upp söktermen av URL:en + kategori + sökParameter + sökVärdet
+  console.log(searchTerm); // logga söktermen
 
+  // hämta sökFältet från DOM:en
   const searchField = document.querySelector("#searchField");
 
+  // kolla så att man skrivit in minst 2 karaktärer i sökfältet
   if (searchValue.length >= 2) {
     displayLoading();
+    // hämta data för söktermen (som egentligen är en konstruerad URL)
     fetch(searchTerm)
       .then((response) => response.json())
       .then((data) => {
+        // kör allt nedan när vi hämtat datan från SWAPI
         hideLoading();
         hideError();
+        // Om söktermen inte ger några resultat, kör error funktionen som visar en ledsen luke
         if (data.count === 0) {
           noResults();
-        } else {
-          searchField.classList.remove("focus:outline-red-700");
-          searchField.setAttribute("placeholder", "Search SWAPI");
-          renderSearchResults(data);
+        }
+        // om vi motförmodan får resultat så blir vi glada och rendererar dem med
+        // renderSearhResults() där vi passerar in datan vi hämtade ovan som parameter
+        else {
+          searchField.classList.remove("focus:outline-red-700"); // ta bort error outline
+          searchField.setAttribute("placeholder", "Search SWAPI"); // ta bort error placeholder
+          renderSearchResults(data); // kör the main show
         }
       })
-      .catch((e) => {
-        console.error(e);
+      // fånga error
+      .catch((error) => {
+        console.error(error);
       });
-  } else {
+  }
+  // när vi skriver in färre än 2 karaktärer ger vi lite errors i form av
+  // outline och fokuserar sökfältet med en error placeholder
+  else {
     console.log("TOO FEW CHARACTERS");
     searchField.value = "";
     searchField.focus();
@@ -59,6 +71,8 @@ function getSwapiData() {
   }
 }
 
+// en ny funktion som hämtar API data men denna gången från AKABAB
+// vi testar här en async await funktion istället för .then
 // Get response from akabab
 async function getAkababData(akababUrl) {
   const response = await fetch(akababUrl);
@@ -66,6 +80,8 @@ async function getAkababData(akababUrl) {
   return data;
 }
 
+// en funktion som hämtar alla bilder samt namn i en ny array med objekt
+// som matchar sökvärdet
 async function searchAkabab() {
   let data = await getAkababData(akababUrl);
   let searchValue = document.querySelector("#searchField").value;
@@ -93,22 +109,15 @@ async function searchAkabab() {
     people.push(person);
   }
 
+  // kör helper funktionen filterIt som returnerar en ny array med matchande resultat
   const matches = filterIt(people, searchValue);
-  return await matches;
+  return await matches; // returnera den nya arrayen
 }
 
-function renderAkabab(matches) {
-  console.log(matches);
-  const result = document.querySelector(".result");
-  for (let i = 0; i < matches.length; i++) {
-    const img = document.createElement("img");
-    img.src = matches[i].image;
-    img.className = "w-64";
-    result.appendChild(img);
-  }
-}
 let errorMessagediv = document.querySelector(".errorMessage");
 
+// en funktion som ger error i form av en ledsen luke
+// körs längre upp
 // If no results were given
 function noResults() {
   const imgContainer = document.querySelector(".imgContainer");
@@ -136,6 +145,8 @@ function hideError() {
   errorMessagediv.classList.add("hidden"); // hide error with class display:none;
 }
 
+// the main show
+// the main event
 // Render the search results from the API call
 async function renderSearchResults(data) {
   console.log("Rendering search results");
@@ -144,22 +155,23 @@ async function renderSearchResults(data) {
   // Gets the element to clone into (searchResults) and the element
   // to clone (btnNode)
   let searchResults = document.querySelector(".search-results");
-  searchResults.classList.remove("hidden");
-  const btnNode = document.querySelector(".search-result");
-  btnNode.addEventListener("click", renderModal);
-  let lastElement = [data.results.length - 1];
-  btnNode.data = data.results[lastElement];
+  searchResults.classList.remove("hidden"); // visa sökresultat DIV:en
+  const btnNode = document.querySelector(".search-result"); // hämta första knappen (hårdkodad i HTML:en)
+  btnNode.addEventListener("click", renderModal); // lägg till en eventListener på första knappen (hårdkodad)
+  let lastElement = [data.results.length - 1]; // ta fram sista index i API data arrayen (dvs, sista elementet)
+  btnNode.data = data.results[lastElement]; // lägg till en property på första knappen som innehåller sista elementet
 
   searchResults.innerHTML = ""; // Clear previous search results
   searchResults.appendChild(btnNode); // Clear previous search results
 
+  // deklarera en tom array
   let names = [];
   // iterate over each API response (data.count)
   for (let j = 0; j < data.count; j++) {
     // Append the amount of search results
     let btnNodeClone = btnNode.cloneNode(true); // clone a new search result
-    btnNodeClone.setAttribute("id", `clone${j}`);
-    btnNodeClone.addEventListener("click", renderModal);
+    btnNodeClone.setAttribute("id", `clone${j}`); // ge varje ny klon ett id
+    btnNodeClone.addEventListener("click", renderModal); // ge varje klon en eventListener som kör renderModal()
     btnNodeClone.data = data.results[j - 1]; // assign the API response to the button
     searchResults.appendChild(btnNodeClone); // append a new search result
 
@@ -180,25 +192,21 @@ async function renderSearchResults(data) {
       spanKeys[i].innerText = keys[i];
       spanValues[i].innerText = values[i];
     }
-    // if (imgArray[j].name === spanValues[j].innerText) {
-    //   console.log(true);
-    //   spanImg[j].src = imgArray[j].image;
-    // } else {
-    //   console.log(false);
   }
 
-  /// HIGHLY EXPERIMENTAL
+  ///////////////////////////////////////////////////////
+  ///// RENDER IMAGES FROM SECONDARY API (DONT ASK FOR EXPLANATION)
   //get hidden button
   let cloneZero = document.querySelectorAll("#clone0");
-  cloneZero[0].remove();
+  cloneZero[0].remove(); // remove first clone for causing bug
   // Populate image-tags
+  // run the SearchAkabab function that runs getAkabab within
+  // AKA: get imgArray from AKABAB API
   let imgArray = await searchAkabab();
   // Get all the span tags containg the <img>
   let spanImg = searchResults.querySelectorAll("li>span.img-key>img");
   // Get all the span.value tags
   let spanNamesNodes = document.querySelectorAll("li.search-title>span.value");
-
-  // Clear previous pictures
 
   console.log(spanNamesNodes);
   // Declare trimmed nodeList
@@ -226,7 +234,7 @@ async function renderSearchResults(data) {
     }
     console.log(trimmedImgArray);
 
-    console.log("We are people");
+    // match corresponding image to the search result
     for (let i = 0; i < spanNamesTrimmed.length; i++) {
       console.log(`i = ${i}`);
       for (let j = 0; j < trimmedImgArray.length; j++) {
@@ -234,24 +242,22 @@ async function renderSearchResults(data) {
           console.log(
             `${spanNamesTrimmed[i].name} === ${trimmedImgArray[j].name}`
           );
-
-          // // Attempt to push images onto modal window background
-          // let modalWindow = document.querySelector(".modal");
-          // modalWindow.style.backgroundImage = `url(${spanImg[i].src})`;
-          // console.log(modalWindow.style.backgroundImage);
-
+          // populate the searchResults with images
           spanImg[i].src = trimmedImgArray[j].image;
           spanImg[i].alt = trimmedImgArray[j].name;
         }
       }
     }
   } else {
+    // remove the previous images from the previous search result
     console.log("Removed src");
     for (let i = 0; i < spanNamesTrimmed.length; i++) {
       spanImg[i].src = "";
       spanImg[i].alt = "";
     }
   }
+  ///// RENDER IMAGES FROM SECONDARY API (DONT ASK FOR EXPLANATION)
+  ///////////////////////////////////////////////////////
 }
 
 // Modal
@@ -262,39 +268,43 @@ const closeModalBtn = document.querySelector(".btn-close");
 const closeModalOverlay = document.querySelector(".overlay");
 const testImg = document.createElement("img");
 
-function renderModal(data) {
-  console.log("rendering modal");
-  openModal();
+try {
+  function renderModal(data) {
+    console.log("rendering modal");
+    openModal();
 
-  const searchResultObject = data.currentTarget.data;
-  console.log(searchResultObject);
+    const searchResultObject = data.currentTarget.data;
+    console.log(searchResultObject);
 
-  const listItems = document.querySelectorAll(".modal > ul > li");
-  const keys = Object.keys(searchResultObject);
-  console.log(keys);
-  const values = Object.values(searchResultObject);
-  console.log(values);
+    const listItems = document.querySelectorAll(".modal > ul > li");
+    const keys = Object.keys(searchResultObject);
+    console.log(keys);
+    const values = Object.values(searchResultObject);
+    console.log(values);
 
-  for (let i = 0; i < keys.length; i++) {
-    // console.log(`${keys}: ${values}`);
-    let modalKeys = modal.querySelectorAll("li>span.modalKey");
-    let modalValues = modal.querySelectorAll("li>span.modalValue");
+    for (let i = 0; i < keys.length; i++) {
+      // console.log(`${keys}: ${values}`);
+      let modalKeys = modal.querySelectorAll("li>span.modalKey");
+      let modalValues = modal.querySelectorAll("li>span.modalValue");
 
-    if (values[i].length === 0 || Array.isArray(values[i])) {
-      console.log(`${values[i]} is invalid`);
-      modalKeys[i].innerText = "";
-      modalValues[i].innerText = "";
+      if (values[i].length === 0 || Array.isArray(values[i])) {
+        console.log(`${values[i]} is invalid`);
+        modalKeys[i].innerText = "";
+        modalValues[i].innerText = "";
 
-      // Hide unpopulated <li>
-      listItems[i + 1].classList.add("!hidden");
-    } else {
-      modalKeys[i].innerText = keys[i];
-      modalValues[i].innerText = values[i];
+        // Hide unpopulated <li>
+        listItems[i + 1].classList.add("!hidden");
+      } else {
+        modalKeys[i].innerText = keys[i];
+        modalValues[i].innerText = values[i];
 
-      // Show previously hidden <li>
-      listItems[i + 1].classList.remove("!hidden");
+        // Show previously hidden <li>
+        listItems[i + 1].classList.remove("!hidden");
+      }
     }
   }
+} catch (error) {
+  console.log(error);
 }
 const openModal = function () {
   modal.classList.remove("modalHidden");
@@ -305,7 +315,3 @@ const closeModal = function () {
   modal.classList.add("modalHidden");
   overlay.classList.add("modalHidden");
 };
-
-openModalBtn.addEventListener("click", openModal);
-closeModalBtn.addEventListener("click", closeModal);
-closeModalOverlay.addEventListener("click", closeModal);
