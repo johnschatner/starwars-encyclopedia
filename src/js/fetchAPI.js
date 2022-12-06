@@ -96,8 +96,6 @@ async function searchAkabab() {
     // character in our search query
     if (searchableName.includes("-") && !searchValue.includes("-")) {
       searchableName = searchableName.replace("-", "");
-    } else if (searchableName.includes("é") && !searchValue.includes("é")) {
-      searchableName = searchableName.replace("é", "e");
     }
 
     // Create the person object {} that will be pushed into the
