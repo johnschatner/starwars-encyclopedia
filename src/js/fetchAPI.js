@@ -158,7 +158,7 @@ async function renderSearchResults(data) {
   searchResults.classList.remove("hidden"); // visa sökresultat DIV:en
   const btnNode = document.querySelector(".search-result"); // hämta första knappen (hårdkodad i HTML:en)
   btnNode.addEventListener("click", renderModal); // lägg till en eventListener på första knappen (hårdkodad)
-  let lastElement = [data.results.length - 1]; // ta fram sista index i API data arrayen (dvs, sista elementet)
+  let lastElement = [data.results.length - 1]; // ta fram sista index i API data arrayen (dvs, sista elementet) // Isac - Jag vet att detta är felskrivet, ska inte vara inuti []
   btnNode.data = data.results[lastElement]; // lägg till en property på första knappen som innehåller sista elementet
 
   searchResults.innerHTML = ""; // Clear previous search results
