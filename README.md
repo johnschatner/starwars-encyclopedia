@@ -78,7 +78,7 @@
 
 ## About The Project
 
-[![Product Name Screen Shot](/src/assets/github-demo/product-name-screenshot.png)](https://example.com)
+[![Product Name Screen Shot](/src/assets/github-demo/product-name-screenshot.png)](https://ec-starwars-encyclopedia.netlify.app/src)
 
 Star Wars Search was originally just a simple search tool for the widely known Star Wars API (SWAPI). It would fetch data for a search term the user would type into the search field. We delved a bit deeper since we wanted the longevity of the project to supersede the practice of hardcoding: which is why we made the search elements dynamically generated.
 
