@@ -195,7 +195,7 @@ async function renderSearchResults(data) {
   }
 
   ///////////////////////////////////////////////////////
-  ///// RENDER IMAGES FROM SECONDARY API (DONT ASK FOR EXPLANATION)
+  ///// RENDER IMAGES FROM SECONDARY API
   //get hidden button
   let cloneZero = document.querySelectorAll("#clone0");
   cloneZero[0].remove(); // remove first clone for causing bug
@@ -282,7 +282,7 @@ try {
     const values = Object.values(searchResultObject);
     console.log(values);
 
-    for (let i = 0; i < keys.length; i++) {
+    for (let i = 0; i < listItems.length - 1; i++) {
       // console.log(`${keys}: ${values}`);
       let modalKeys = modal.querySelectorAll("li>span.modalKey");
       let modalValues = modal.querySelectorAll("li>span.modalValue");
@@ -306,6 +306,7 @@ try {
 } catch (error) {
   console.log(error);
 }
+
 const openModal = function () {
   modal.classList.remove("modalHidden");
   overlay.classList.remove("modalHidden");
