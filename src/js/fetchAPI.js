@@ -234,6 +234,12 @@ async function renderSearchResults(data) {
     }
     console.log(trimmedImgArray);
 
+    // clear previous search results
+    for (let i = 0; i < spanNamesTrimmed.length; i++) {
+      spanImg[i].src = "";
+      spanImg[i].alt = "";
+    }
+
     // match corresponding image to the search result
     for (let i = 0; i < spanNamesTrimmed.length; i++) {
       console.log(`i = ${i}`);
